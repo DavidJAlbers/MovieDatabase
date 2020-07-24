@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+    app:
+        container_name: movie-app
+        image: movie-app
+        build:
+            context: ./containers/app
+        volumes:
+            - ./html:/var/www/html
+        ports:
+            - 80:80
+        networks: 
+            - movie-network
+    db:
+        container_name: movie-db
+        image: movie-db
+        build:
+            context: ./containers/db
+        volumes: 
+            - movie-db:/var/lib/mysql
+        networks:
+            - movie-network
+networks:
+    movie-network:
+        name: movie-network
+volumes:
+    movie-db:
+        name: movie-db
